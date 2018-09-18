@@ -31,11 +31,11 @@ public class Main extends Application {
 
     private static void testGame(){
         BowlingPlayer player1 = new BowlingPlayer("Danny");
-        BowlingPlayer player2 = new BowlingPlayer("Niels");
+//        BowlingPlayer player2 = new BowlingPlayer("Niels");
 
         List<BowlingPlayer> players = new ArrayList<BowlingPlayer>();
         players.add(player1);
-        players.add(player2);
+//        players.add(player2);
 
         BowlingGame game = new BowlingGame(players);
 
@@ -67,8 +67,15 @@ public class Main extends Application {
                         case STRIKE:
                             outputString += "Strike";
                             break;
-                            default:
-                                outputString += "Error";
+                        default:
+                            outputString += "Error";
+                    }
+
+                    if (frame.getAmountOfBonusScores() == 1){
+                        outputString += "BONUSSCRE : " + frame.getFrameBonusScore().get(0) + " - ";
+                    }
+                    if (frame.getAmountOfBonusScores() == 2){
+                        outputString += "BONUSSCRE : " + frame.getFrameBonusScore().get(0) + "|" + frame.getFrameBonusScore().get(1) + " - ";
                     }
                     System.out.println(outputString);
                 }
@@ -79,7 +86,7 @@ public class Main extends Application {
             System.out.println("How many pins has " + game.getCurrentPlayer().getName() + " thrown");
             int amountPins = scanner.nextInt();
 
-            game.getCurrentPlayer().getLastFrame().addThrow(amountPins);
+            game.getCurrentPlayer().addPointsToLastFrame(amountPins);
 
         }
 

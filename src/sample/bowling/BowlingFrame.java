@@ -6,6 +6,7 @@ import java.util.List;
 public class BowlingFrame {
 
     List<Integer> _score = new ArrayList<Integer>();
+    List<Integer> _bonusScore = new ArrayList<Integer>();
 
     /**
      * @param pinsAmount the amounts of pins thrown at the single throw, max a total of 10
@@ -19,8 +20,35 @@ public class BowlingFrame {
         }
     }
 
+    /**
+     * function to add bonus points to throw used for extra points if previous frame was spare or strike
+     * @param pinsAmount amount of bonus points
+     */
+    public void addBonusPoints(int pinsAmount){
+        _bonusScore.add(pinsAmount);
+        System.out.println(_bonusScore);
+    }
+
+    /**
+     * @return int list with 2 indexes 0 = first throw, 1 = second throw
+     *  index 1 will be empty if the player thrown a strike
+     */
     public List<Integer> getFrameScore(){
         return _score;
+    }
+
+    /**
+     * @return bonus score of frame, used for extra points if previous frame was spare or strike
+     */
+    public List<Integer> getFrameBonusScore(){
+        return _bonusScore;
+    }
+
+    /**
+     * @return amount of bonus scores 1 if previous game was spare and 2 if precious game was a strike
+     */
+    public int getAmountOfBonusScores(){
+        return _bonusScore.size();
     }
 
     /**
@@ -71,12 +99,12 @@ public class BowlingFrame {
     public scoreKind getScoreKind(){
         //either a strike or split has been thrown
         if(getTotalPoints() >= 10){
-            //10 points have been achieved in 1 throw so its a strike
             if (getAmountOfThrows() == 1){
+                //10 points have been achieved in 1 throw so its a strike
                 return scoreKind.STRIKE;
             }
-            //10 points have been achieved in 2 throws so its a spare
             else if (getAmountOfThrows() == 2){
+                //10 points have been achieved in 2 throws so its a spare
                 return scoreKind.SPARE;
             }
         }
